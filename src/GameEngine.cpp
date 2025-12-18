@@ -15,13 +15,8 @@ GameEngine::~GameEngine()
     SDL_DestroyWindow(win);
 }
 
-
-// sprite texture cache
-std::map<std::string, SDL_Texture *> spriteTextures;
-
-
 // game loop
-void run()
+void GameEngine::run()
 {
 
     const int FPS = 60;
@@ -59,12 +54,12 @@ void run()
                 }
             }
         }
-
-        SDL_RenderTexture(ren, )
     }
 }
 
-SDL_Texture *getSpriteTexture(std::string texture)
+
+// find texture for Sprite
+SDL_Texture *GameEngine::getSpriteTexture(std::string texture)
 {
     return spriteTextures.at(texture);
 }

@@ -3,7 +3,13 @@
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 #include <vector>
+#include <memory>
 #include "Constants.h"
+
+namespace cnts = constants;
+
+class Sprite;
+typedef std::shared_ptr<Sprite> SpritePtr;
 
 class GameEngine {
     public:
@@ -11,4 +17,14 @@ class GameEngine {
         GameEngine();
         ~GameEngine();
 
-}
+        SDL_Renderer* getRen() const { return ren; }
+        SDL_Window* getWin() const { return win; }
+
+        void run();
+
+        private:
+
+            SDL_Window* win;
+            SDL_Renderer* ren;
+
+};

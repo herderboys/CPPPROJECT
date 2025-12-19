@@ -13,6 +13,9 @@ namespace cnts = constants;
 class Sprite;
 typedef std::shared_ptr<Sprite> SpritePtr;
 
+class MoveableSprite;
+typedef std::shared_ptr<MoveableSprite> MovSpritePtr;
+
 class GameEngine
 {
 public:
@@ -22,13 +25,21 @@ public:
     SDL_Renderer *getRen() const { return ren; }
     SDL_Window *getWin() const { return win; }
 
+    void addSprite(SpritePtr);
+
     void run();
+
     SDL_Texture *getSpriteTexture(std::string);
 
 private:
     SDL_Window *win;
     SDL_Renderer *ren;
+    SpritePtr player;
+    // vector holding all active sprites
+    std::vector<SpritePtr> sprites;
 
     // sprite texture cache
     std::map<std::string, SDL_Texture *> spriteTextures;
 };
+
+extern GameEngine engine;

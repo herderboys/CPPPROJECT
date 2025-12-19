@@ -2,7 +2,5 @@
 
 int main() {
 
-    GameEngine engine;
-
-    
+    engine.run();
 }

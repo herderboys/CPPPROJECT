@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include "Constants.h"
+#include "Sprite.h"
 #include "GameEngine.h"
 
 GameEngine::GameEngine()
@@ -12,6 +13,9 @@ GameEngine::GameEngine()
     spriteTextures["ememyShip"] = IMG_LoadTexture(ren, cnts::enemyShipTexture.c_str());
     spriteTextures["earth"] = IMG_LoadTexture(ren, cnts::earthTexture.c_str());
     spriteTextures["background"] = IMG_LoadTexture(ren, cnts::backgroundTexture.c_str());
+
+    player = std::make_shared<Sprite>("player", "playerShip", cnts::gScreenWidth / 2, cnts::gScreenHeight / 2);
+    addSprite(player);
 }
 
 GameEngine::~GameEngine()
@@ -20,16 +24,24 @@ GameEngine::~GameEngine()
     SDL_DestroyWindow(win);
 }
 
+void GameEngine::addSprite(SpritePtr sprite)
+{
+    sprites.push_back(sprite);
+}
+
 // game loop
 void GameEngine::run()
 {
 
-    const int FPS = 60;
-    const int TICKINTERVAL = 1000 / FPS;
+    // const int FPS = 60;
+    // const int TICKINTERVAL = 1000 / FPS;
 
     bool running = true;
+
     while (running)
     {
+        SDL_RenderClear(ren);
+
         SDL_Event event;
 
         while (SDL_PollEvent(&event))
@@ -43,22 +55,31 @@ void GameEngine::run()
             case SDL_EVENT_KEY_DOWN:
                 if (event.key.key == SDLK_W)
                 {
-                    // move up
+                    player->move(0, -15);
                 }
                 if (event.key.key == SDLK_A)
                 {
-                    // move left
+                    player->move(-15, 0);
                 }
                 if (event.key.key == SDLK_S)
                 {
-                    // move down
+                    player->move(0, 15);
                 }
                 if (event.key.key == SDLK_D)
                 {
-                    // move right
+                    player->move(15, 0);
                 }
             }
         }
+
+        SDL_RenderTexture(ren, spriteTextures["background"], NULL, NULL);
+
+        for (auto &sprite : sprites)
+        {
+            sprite->draw();
+        }
+
+        SDL_RenderPresent(ren);
     }
 }
 
@@ -67,3 +88,5 @@ SDL_Texture *GameEngine::getSpriteTexture(std::string texture)
 {
     return spriteTextures.at(texture);
 }
+
+GameEngine engine;

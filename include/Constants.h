@@ -1,5 +1,4 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#pragma once
 
 #include <string>
 
@@ -14,5 +13,3 @@ namespace constants
 	const std::string bg_str  { gResPath + "images/bg.jpg" };
     const std::string sample_str { gResPath + "sounds/sample.wav"};
 }
-
-#endif

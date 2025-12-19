@@ -7,6 +7,11 @@ GameEngine::GameEngine()
 {
     win = SDL_CreateWindow("Alien Attack", cnts::gScreenWidth, cnts::gScreenHeight, 0);
     ren = SDL_CreateRenderer(win, NULL);
+
+    spriteTextures["playerShip"] = IMG_LoadTexture(ren, cnts::playerShipTexture.c_str());
+    spriteTextures["ememyShip"] = IMG_LoadTexture(ren, cnts::enemyShipTexture.c_str());
+    spriteTextures["earth"] = IMG_LoadTexture(ren, cnts::earthTexture.c_str());
+    spriteTextures["background"] = IMG_LoadTexture(ren, cnts::backgroundTexture.c_str());
 }
 
 GameEngine::~GameEngine()
@@ -56,7 +61,6 @@ void GameEngine::run()
         }
     }
 }
-
 
 // find texture for Sprite
 SDL_Texture *GameEngine::getSpriteTexture(std::string texture)

@@ -12,7 +12,7 @@ int main() {
 
     auto earth = std::make_shared<Sprite>(
         &game, "earth", cnts::earthTexture.c_str(), 
-        (cnts::gScreenWidth / 2) - 72, (cnts::gScreenHeight / 2) - 72);
+        (cnts::gScreenWidth / 2) - 72, (cnts::gScreenHeight / 2));
     
         game.addSprite(earth);
 

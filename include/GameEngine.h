@@ -6,7 +6,6 @@
 #include <vector>
 #include <memory>
 #include <map>
-#include "Constants.h"
 
 namespace cnts = constants;
 
@@ -19,11 +18,12 @@ typedef std::shared_ptr<MoveableSprite> MovSpritePtr;
 class GameEngine
 {
 public:
-    GameEngine();
+    GameEngine(const char* title);
     ~GameEngine();
 
     SDL_Renderer *getRen() const { return ren; }
-    SDL_Window *getWin() const { return win; }
+
+    SDL_Texture* getTexture(const char* path);
 
     void addSprite(SpritePtr);
 
@@ -34,12 +34,15 @@ public:
 private:
     SDL_Window *win;
     SDL_Renderer *ren;
+
+    const char* title;
+
     SpritePtr player;
+    SpritePtr earth;
+
     // vector holding all active sprites
     std::vector<SpritePtr> sprites;
 
     // sprite texture cache
     std::map<std::string, SDL_Texture *> spriteTextures;
 };
-
-extern GameEngine engine;

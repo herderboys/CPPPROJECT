@@ -3,20 +3,30 @@
 #include "GameEngine.h"
 #include <iostream>
 
-Sprite::Sprite(std::string name, std::string textureName, float x, float y)
+Sprite::Sprite(GameEngine* eng, std::string name, const char* path, float x, float y) : 
+engine(eng)
 {
-    texture = engine.getSpriteTexture(textureName);
+    texture = engine->getTexture(path);
     if (!texture)
     {
-        std::cerr << "No such file: " << textureName << std::endl;
+        std::cerr << "No such file: " << path << std::endl;
     }
-    rect = {x,
-            y,
-            static_cast<float>(texture->w),
-            static_cast<float>(texture->h)};
-        }
+
+    float w, h;
+    SDL_GetTextureSize(texture, &w, &h);
+    rect = {x, y, w, h};
+}
 
 Sprite::~Sprite() {}
+
+bool Sprite::collidedWith(Sprite &other)
+{
+    return SDL_HasRectIntersectionFloat(&rect, &other.rect);
+}
+
+void Sprite::tick() {
+
+}
 
 void Sprite::move(float dx, float dy)
 {
@@ -25,7 +35,8 @@ void Sprite::move(float dx, float dy)
     rect.y += dy;
 }
 
-
-void Sprite::draw() const {
-    SDL_RenderTexture(engine.getRen(), getTexture(), NULL, &rect);
+void Sprite::draw() const
+{
+    SDL_RenderTextureRotated(engine->getRen(), getTexture(), 
+    NULL, &rect, rotationAngle, NULL, SDL_FLIP_NONE);
 };

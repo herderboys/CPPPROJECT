@@ -4,24 +4,26 @@
 #include "Sprite.h"
 #include "GameEngine.h"
 
-GameEngine::GameEngine()
+GameEngine::GameEngine(const char *title)
 {
-    win = SDL_CreateWindow("Alien Attack", cnts::gScreenWidth, cnts::gScreenHeight, 0);
+    win = SDL_CreateWindow(title, cnts::gScreenWidth, cnts::gScreenHeight, 0);
     ren = SDL_CreateRenderer(win, NULL);
-
-    spriteTextures["playerShip"] = IMG_LoadTexture(ren, cnts::playerShipTexture.c_str());
-    spriteTextures["ememyShip"] = IMG_LoadTexture(ren, cnts::enemyShipTexture.c_str());
-    spriteTextures["earth"] = IMG_LoadTexture(ren, cnts::earthTexture.c_str());
-    spriteTextures["background"] = IMG_LoadTexture(ren, cnts::backgroundTexture.c_str());
-
-    player = std::make_shared<Sprite>("player", "playerShip", cnts::gScreenWidth / 2, cnts::gScreenHeight / 2);
-    addSprite(player);
 }
 
 GameEngine::~GameEngine()
 {
     SDL_DestroyRenderer(ren);
     SDL_DestroyWindow(win);
+}
+
+SDL_Texture *GameEngine::getTexture(const char *path)
+{
+    if (spriteTextures.find(path) == spriteTextures.end())
+    {
+        SDL_Texture *texture = IMG_LoadTexture(ren, path);
+        spriteTextures[path] = texture;
+    }
+    return spriteTextures[path];
 }
 
 void GameEngine::addSprite(SpritePtr sprite)
@@ -46,36 +48,20 @@ void GameEngine::run()
 
         while (SDL_PollEvent(&event))
         {
-            switch (event.type)
-            {
-            case SDL_EVENT_QUIT:
+
+            if (event.type == SDL_EVENT_QUIT) {
                 running = false;
                 break;
-            // case ...
-            case SDL_EVENT_KEY_DOWN:
-                if (event.key.key == SDLK_W)
-                {
-                    player->move(0, -15);
-                }
-                if (event.key.key == SDLK_A)
-                {
-                    player->move(-15, 0);
-                }
-                if (event.key.key == SDLK_S)
-                {
-                    player->move(0, 15);
-                }
-                if (event.key.key == SDLK_D)
-                {
-                    player->move(15, 0);
-                }
             }
+            /*
+
+            */
         }
 
-        SDL_RenderTexture(ren, spriteTextures["background"], NULL, NULL);
 
         for (auto &sprite : sprites)
         {
+            sprite->tick();
             sprite->draw();
         }
 
@@ -88,5 +74,3 @@ SDL_Texture *GameEngine::getSpriteTexture(std::string texture)
 {
     return spriteTextures.at(texture);
 }
-
-GameEngine engine;

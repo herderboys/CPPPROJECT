@@ -6,5 +6,6 @@
 class Player : public Sprite
 {
 public:
-    Player(std::string name, std::string texture, float x, float y);
+    Player(GameEngine* engine, std::string name, const char* path, float x, float y);
+    void tick() override;
 };

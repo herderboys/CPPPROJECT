@@ -6,16 +6,20 @@
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
-class Sprite : GameObject
+class GameEngine;
+class Sprite : public GameObject
 {
 public:
-    Sprite(std::string name, std::string texture, float x, float y);
+    Sprite(GameEngine* engine, std::string name, const char* texture, float x, float y);
     Sprite() = default;
     virtual ~Sprite();
+    virtual void tick();
 
     void move(float dx, float dy);
 
     void draw() const;
+
+    bool collidedWith(Sprite& other);
 
     SDL_FRect &getRect()
     {
@@ -27,7 +31,9 @@ public:
         return texture;
     }
 
-private:
+protected:
     SDL_FRect rect;
     SDL_Texture *texture;
+    GameEngine* engine;
+    double rotationAngle = 0.0;
 };

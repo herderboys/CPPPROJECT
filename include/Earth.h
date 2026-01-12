@@ -8,5 +8,5 @@ public:
     int getHealth() { return health; }
 
 private:
-    int health = 500;
+    int health = 5000;
 };

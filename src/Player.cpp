@@ -3,6 +3,7 @@
 #include "Constants.h"
 #include "GameEngine.h"
 #include "Player.h"
+#include "Bullet.h"
 #include <cmath>
 #include <iostream>
 
@@ -31,6 +32,10 @@ void Player::bounceFrom(Sprite &other)
         dirX /= length;
         dirY /= length;
     }
+
+    float pushDistance = 15.0f; // ensure that player no longer colliding in next frame
+    rect.x += dirX * pushDistance;
+    rect.y += dirY * pushDistance;
 
     // bounce player
     float bounceForce = 10.0f;
@@ -101,7 +106,7 @@ void Player::tick()
     // rotating player to it always faces mouse cursor
     // mouse cursor current position
     float mouseX, mouseY;
-    SDL_GetMouseState(&mouseX, &mouseY);
+    SDL_MouseButtonFlags mouseState = SDL_GetMouseState(&mouseX, &mouseY);
 
     // center of sprite
     float centerX = r.x + (r.w / 2);
@@ -118,4 +123,17 @@ void Player::tick()
     double angleDegrees = angleRadians * (180.0 / M_PI);
     // + 90 because ship points up, otherwise would point to left
     rotationAngle = angleDegrees + 90;
+
+    // shooting logic
+    if (reloadTimer > 0) { reloadTimer--; }
+
+    if ((mouseState & SDL_BUTTON_LMASK) && reloadTimer == 0) {
+        reloadTimer = 60;
+
+        float spawnX = rect.x + (rect.w / 2) - 5;
+        float spawnY = rect.y + (rect.h / 2) - 5;
+
+        auto bullet = std::make_shared<Bullet>(engine, spawnX, spawnY, rotationAngle);
+        engine->addSprite(bullet);
+    }
 }

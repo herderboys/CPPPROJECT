@@ -13,6 +13,8 @@ public:
     int getHealth() { return health; }
 
 private:
+    int reloadTimer = 0;    
+
     int health = 100;
 
     float vx = 0; // velocity, for bounce function

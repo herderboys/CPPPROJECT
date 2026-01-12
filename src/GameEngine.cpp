@@ -1,6 +1,10 @@
 #include <iostream>
 #include <map>
 #include "Constants.h"
+#include "Player.h"
+#include "Earth.h"
+#include "Enemy.h"
+#include "Bullet.h"
 #include "Sprite.h"
 #include "GameEngine.h"
 
@@ -49,7 +53,8 @@ void GameEngine::run()
         }
 
         // removing removed sprites
-        auto it = std::remove_if(sprites.begin(), sprites.end(), [](const SpritePtr& s) { return s->isRemoved(); });
+        auto it = std::remove_if(sprites.begin(), sprites.end(), [](const SpritePtr &s)
+                                 { return s->isRemoved(); });
         sprites.erase(it, sprites.end());
 
         SDL_RenderClear(ren);
@@ -72,8 +77,47 @@ void GameEngine::run()
             sprite->draw();
             for (auto &other : sprites)
             {
-                if (sprite.get() == other.get()) { continue; }
-                sprite->collidedWith(*other);
+                if (sprite.get() == other.get())
+                {
+                    continue;
+                }
+
+                if (sprite->collidedWith(*other))
+                {
+                    auto player = dynamic_cast<Player *>(sprite.get());
+                    auto earth = dynamic_cast<Earth *>(sprite.get());
+                    auto bullet = dynamic_cast<Bullet *>(sprite.get());
+
+                    auto otherEnemy = dynamic_cast<Enemy *>(other.get());
+                    auto otherEarth = dynamic_cast<Earth *>(other.get());
+
+                    if (player && otherEnemy) {
+                        player->bounceFrom(*otherEnemy);
+                        player->takeDamage();
+                        otherEnemy->remove();
+                    }
+
+                    if (player && otherEarth) {
+                        player->bounceFrom(*otherEarth);
+                        player->takeDamage();
+                        otherEarth->takeDamage();
+                    }
+
+                    if (earth && otherEnemy) {
+                        earth->takeDamage();
+                        otherEnemy->remove();
+                    }
+
+                    if (bullet && otherEnemy) {
+                        otherEnemy->remove();
+                        bullet->remove();
+                    }
+
+                    if (bullet && otherEarth) {
+                        otherEarth->takeDamage();
+                        bullet->remove();
+                    }
+                }
             }
         }
 

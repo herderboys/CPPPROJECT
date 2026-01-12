@@ -2,6 +2,7 @@
 #include "GameEngine.h"
 #include "Spawner.h"
 #include "Sprite.h"
+#include "Earth.h"
 #include "Player.h"
 #include <iostream>
 
@@ -12,8 +13,7 @@ int main()
 
     GameEngine game("Alien Attack!");
 
-    auto earth = std::make_shared<Sprite>(
-        &game, "earth", cnts::earthTexture.c_str(), 0, 0);
+    auto earth = std::make_shared<Earth>(&game, "earth", cnts::earthTexture.c_str(), 0, 0);
 
     // setting position of earth
     // honestly not very much though behind this math,
@@ -23,9 +23,7 @@ int main()
 
     game.addSprite(earth);
 
-    auto player = std::make_shared<Player>(
-        &game, "player", cnts::playerShipTexture.c_str(),
-        (cnts::gScreenWidth / 2) - 72, (cnts::gScreenHeight / 2) - 72); // magic number, fix
+    auto player = std::make_shared<Player>(&game, "player", cnts::playerShipTexture.c_str(),(cnts::gScreenWidth / 2) - 72, (cnts::gScreenHeight / 2) - 72); // magic number, fix
 
     game.addSprite(player);
 

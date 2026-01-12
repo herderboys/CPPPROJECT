@@ -16,6 +16,6 @@ namespace constants
 	const std::string earthTexture{gResPath + "earth/textures/earth.png"};
 	const std::string playerShipTexture{gResPath + "player/textures/playership.png"};
 	const std::string enemyShipTexture{gResPath + "enemy/textures/enemyship.png"};
-	const std::string bulletTexture{gResPath + "enemy/textures/bullet.png"};
+	const std::string bulletTexture{gResPath + "bullet/textures/bullet.png"};
 	const std::string backgroundTexture{gResPath + "world/textures/background.png"};
 }

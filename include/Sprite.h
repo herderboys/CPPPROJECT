@@ -1,25 +1,24 @@
 #pragma once
 
-#include "GameObject.h"
 #include <iostream>
 #include <SDL3/SDL.h>
 #include <SDL3_image/SDL_image.h>
 #include <SDL3_ttf/SDL_ttf.h>
 
 class GameEngine;
-class Sprite : public GameObject
+class Sprite
 {
 public:
-    Sprite(GameEngine* engine, std::string name, const char* texture, float x, float y);
+    Sprite(GameEngine *engine, std::string name, const char *texture, float x, float y);
     Sprite() = default;
     virtual ~Sprite();
     virtual void tick();
 
     void move(float dx, float dy);
 
-    void draw() const;
+    virtual void draw() const;
 
-    bool collidedWith(Sprite& other);
+    virtual bool collidedWith(Sprite &other);
 
     SDL_FRect &getRect()
     {
@@ -31,9 +30,14 @@ public:
         return texture;
     }
 
+    void remove() { removed = true; }
+    bool isRemoved() const { return removed; }
+
 protected:
     SDL_FRect rect;
     SDL_Texture *texture;
-    GameEngine* engine;
+    GameEngine *engine;
     double rotationAngle = 0.0;
+
+    bool removed = false;
 };

@@ -13,6 +13,10 @@ int main()
 
     GameEngine game("Alien Attack!");
 
+    auto background = std::make_shared<Sprite>(&game, "background", cnts::backgroundTexture.c_str(), 0, 0);
+
+    game.addSprite(background);
+
     auto earth = std::make_shared<Earth>(&game, "earth", cnts::earthTexture.c_str(), 0, 0);
 
     // setting position of earth

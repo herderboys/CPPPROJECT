@@ -22,6 +22,6 @@ private:
     float vy = 0;
 
     float maxSpeed = 2.0f;
-    float friction = 0.99f; // felt this was a good half floaty friction
+    float friction = 0.98f; // felt this was a good half floaty friction
     float speed = 0.5f;
 };

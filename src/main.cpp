@@ -16,9 +16,9 @@ int main()
     auto earth = std::make_shared<Earth>(&game, "earth", cnts::earthTexture.c_str(), 0, 0);
 
     // setting position of earth
-    // honestly not very much though behind this math,
+    // honestly not very much though behind math for setting x and y pos,
     // this is what looked best when I tested different numbers
-    earth->getRect().x = (earth->getRect().w / 2) - (cnts::gScreenWidth - 60);
+    earth->getRect().x = ((cnts::gScreenWidth / 2) - (earth->getRect().w / 2) - 50);
     earth->getRect().y = (earth->getRect().h / 2.1);
 
     game.addSprite(earth);

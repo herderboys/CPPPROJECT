@@ -29,4 +29,8 @@ void Enemy::onCollision(Sprite& other) {
     if (dynamic_cast<Earth*>(&other)) {
         remove();
     }
+
+    if (dynamic_cast<Enemy*>(&other)) {
+        remove(); // make sure no enemies spawn into each other
+    }
 }

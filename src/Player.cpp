@@ -142,7 +142,7 @@ void Player::tick()
     if (reloadTimer > 0) { reloadTimer--; }
 
     if ((mouseState & SDL_BUTTON_LMASK) && reloadTimer == 0) {
-        reloadTimer = 60;
+        reloadTimer = 40;
 
         float spawnX = rect.x + (rect.w / 2) - 5;
         float spawnY = rect.y + (rect.h / 2) - 5;

@@ -9,5 +9,5 @@ public:
     void onCollision(Sprite& other) override;
 
 private:
-    int health = 5000;
+    int health = 500;
 };

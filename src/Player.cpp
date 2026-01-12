@@ -4,12 +4,26 @@
 #include "GameEngine.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "Enemy.h"
+#include "Earth.h"
 #include <cmath>
 #include <iostream>
 
 namespace cnts = constants;
 
 Player::Player(GameEngine *engine, std::string name, const char *path, float x, float y) : Sprite(engine, name, path, x, y) {}
+
+void Player::onCollision(Sprite& other) {
+    if (dynamic_cast<Enemy*>(&other)) {
+        bounceFrom(other);
+        takeDamage();
+    }
+
+    if (dynamic_cast<Earth*>(&other)) {
+        bounceFrom(other);
+        takeDamage();
+    }
+}
 
 void Player::bounceFrom(Sprite &other)
 {

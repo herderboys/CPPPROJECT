@@ -9,6 +9,8 @@ public:
 
     void tick() override;
 
+    void onCollision(Sprite& other) override;
+
 private:
     float vx, vy;
 };

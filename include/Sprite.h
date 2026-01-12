@@ -20,6 +20,8 @@ public:
 
     virtual bool collidedWith(Sprite &other);
 
+    virtual void onCollision(Sprite& other) {}
+
     SDL_FRect &getRect()
     {
         return rect;
@@ -40,4 +42,9 @@ protected:
     double rotationAngle = 0.0;
 
     bool removed = false;
+
+private:
+    Sprite(const Sprite& other) = delete;
+    const Sprite& operator=(const Sprite& other) = delete;
+
 };

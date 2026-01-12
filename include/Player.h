@@ -7,13 +7,14 @@ class Player : public Sprite
 {
 public:
     Player(GameEngine *engine, std::string name, const char *path, float x, float y);
-    void tick() override;
+    void onCollision(Sprite &other) override;
     void bounceFrom(Sprite &other);
     void takeDamage();
+    void tick() override;
     int getHealth() { return health; }
 
 private:
-    int reloadTimer = 0;    
+    int reloadTimer = 0;
 
     int health = 100;
 

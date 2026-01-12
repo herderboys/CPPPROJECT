@@ -84,39 +84,8 @@ void GameEngine::run()
 
                 if (sprite->collidedWith(*other))
                 {
-                    auto player = dynamic_cast<Player *>(sprite.get());
-                    auto earth = dynamic_cast<Earth *>(sprite.get());
-                    auto bullet = dynamic_cast<Bullet *>(sprite.get());
-
-                    auto otherEnemy = dynamic_cast<Enemy *>(other.get());
-                    auto otherEarth = dynamic_cast<Earth *>(other.get());
-
-                    if (player && otherEnemy) {
-                        player->bounceFrom(*otherEnemy);
-                        player->takeDamage();
-                        otherEnemy->remove();
-                    }
-
-                    if (player && otherEarth) {
-                        player->bounceFrom(*otherEarth);
-                        player->takeDamage();
-                        otherEarth->takeDamage();
-                    }
-
-                    if (earth && otherEnemy) {
-                        earth->takeDamage();
-                        otherEnemy->remove();
-                    }
-
-                    if (bullet && otherEnemy) {
-                        otherEnemy->remove();
-                        bullet->remove();
-                    }
-
-                    if (bullet && otherEarth) {
-                        otherEarth->takeDamage();
-                        bullet->remove();
-                    }
+                    sprite->onCollision(*other);
+                    other->onCollision(*sprite);
                 }
             }
         }

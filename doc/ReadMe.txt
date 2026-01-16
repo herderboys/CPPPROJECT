@@ -20,7 +20,7 @@ Projektet kräver att mappen "resources" ligger i samma katalog som du kör spel
 Kontroller
 
 - För att kunna kontrollera spelaren använder du W/A/S/D (upp, vänster, ner, höger). Detta styr rymdskeppets rörelse.
-- Rymsdskeppet roterar baserad på musrörelse så att nosen på skeppet alltid är riktad mot muspekaren.
+- Rymdskeppet roterar baserad på musrörelse så att nosen på skeppet alltid är riktad mot muspekaren.
 - Vänster musklick skjuter en "bullet" (skott) i riktningen som muspekaren är riktad mot, relativt till rymdskeppet.
 
 Målet med spelet

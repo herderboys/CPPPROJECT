@@ -41,11 +41,15 @@ void GameEngine::addSprite(SpritePtr sprite)
 void GameEngine::run()
 {
 
-    // const int FPS = 60;
-    // const int TICKINTERVAL = 1000 / FPS;
+    const int FPS = 60;
+    const int TICKINTERVAL = 1000 / FPS;
+    int frameStart;
+    int frameTime;
 
     while (running)
     {
+        frameStart = SDL_GetTicks();
+
         if (!addedSprites.empty())
         {
             sprites.insert(sprites.end(), addedSprites.begin(), addedSprites.end());
@@ -91,6 +95,14 @@ void GameEngine::run()
         }
 
         SDL_RenderPresent(ren);
+
+        // capping at 60fps so physics works the same independently of monitor refresh rate
+        frameTime = SDL_GetTicks() - frameStart;
+
+        if (TICKINTERVAL > frameTime)
+        {
+            SDL_Delay(TICKINTERVAL - frameTime);
+        }
     }
 }
 

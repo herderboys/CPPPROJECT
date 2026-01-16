@@ -1,7 +1,7 @@
 #pragma once
-#include "Sprite.h"
+#include "RoundSprite.h"
 
-class Bullet : public Sprite
+class Bullet : public RoundSprite
 {
 
 public:

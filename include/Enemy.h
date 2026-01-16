@@ -1,7 +1,7 @@
 #pragma once
-#include "Sprite.h"
+#include "RoundSprite.h"
 
-class Enemy : public Sprite {
+class Enemy : public RoundSprite {
     public:
     Enemy(GameEngine* engine, float x, float y);
     void tick() override;

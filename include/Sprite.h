@@ -12,7 +12,7 @@ public:
     Sprite(GameEngine *engine, std::string name, const char *texture, float x, float y);
     Sprite() = default;
     virtual ~Sprite();
-    virtual void tick();
+    virtual void tick() {};
 
     void move(float dx, float dy);
 

@@ -1,11 +1,13 @@
-#include "Sprite.h"
+#pragma once
 
-class Earth : public Sprite
+#include "RoundSprite.h"
+
+class Earth : public RoundSprite
 {
 public:
-    using Sprite::Sprite;
+    using RoundSprite::RoundSprite;
     void takeDamage();
-    int getHealth() { return health; }
+    int getHealth() { return health; } 
     void onCollision(Sprite& other) override;
 
 private:

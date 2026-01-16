@@ -2,8 +2,8 @@
 #include "GameEngine.h"
 #include "Spawner.h"
 #include "Sprite.h"
-#include "Earth.h"
 #include "Player.h"
+#include "Earth.h"
 #include <iostream>
 
 namespace cnts = constants;
@@ -27,7 +27,8 @@ int main()
 
     game.addSprite(earth);
 
-    auto player = std::make_shared<Player>(&game, "player", cnts::playerShipTexture.c_str(),(cnts::gScreenWidth / 2) - 72, (cnts::gScreenHeight / 2) - 72); // magic number, fix
+    auto player = std::make_shared<Player>(&game, "player", cnts::playerShipTexture.c_str(), (cnts::gScreenWidth / 2) - 72, (cnts::gScreenHeight / 2) - 72); // 72 is magic, is only way
+                                                                                                                                                             // I was able to set player in middle
 
     game.addSprite(player);
 

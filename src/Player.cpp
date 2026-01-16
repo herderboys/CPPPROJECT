@@ -1,5 +1,5 @@
 
-#include "Sprite.h"
+#include "RoundSprite.h"
 #include "Constants.h"
 #include "GameEngine.h"
 #include "Player.h"
@@ -11,7 +11,7 @@
 
 namespace cnts = constants;
 
-Player::Player(GameEngine *engine, std::string name, const char *path, float x, float y) : Sprite(engine, name, path, x, y) {}
+Player::Player(GameEngine *engine, std::string name, const char *path, float x, float y) : RoundSprite(engine, name, path, x, y) {}
 
 void Player::onCollision(Sprite& other) {
     if (dynamic_cast<Enemy*>(&other)) {
@@ -142,7 +142,7 @@ void Player::tick()
     if (reloadTimer > 0) { reloadTimer--; }
 
     if ((mouseState & SDL_BUTTON_LMASK) && reloadTimer == 0) {
-        reloadTimer = 40;
+        reloadTimer = 10;
 
         float spawnX = rect.x + (rect.w / 2) - 5;
         float spawnY = rect.y + (rect.h / 2) - 5;

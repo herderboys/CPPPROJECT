@@ -10,7 +10,7 @@ void Spawner::draw() const {}
 
 void Spawner::tick() {
     spawnTimer++;
-    if (spawnTimer > 50) {
+    if (spawnTimer > 15) {
         spawnEnemy();
         spawnTimer = 0;
     }

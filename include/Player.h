@@ -1,9 +1,9 @@
 #pragma once
 
-#include "Sprite.h"
+#include "RoundSprite.h"
 #include <iostream>
 
-class Player : public Sprite
+class Player : public RoundSprite
 {
 public:
     Player(GameEngine *engine, std::string name, const char *path, float x, float y);
@@ -21,7 +21,7 @@ private:
     float vx = 0; // velocity, for bounce function
     float vy = 0;
 
-    float maxSpeed = 2.0f;
-    float friction = 0.98f; // felt this was a good half floaty friction
-    float speed = 0.5f;
+    float maxSpeed = 6.0f;
+    float friction = 0.95f; // felt this was a good half floaty friction
+    float speed = 1.5f;
 };

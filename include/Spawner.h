@@ -1,3 +1,4 @@
+#pragma once
 #include "Sprite.h"
 
 class Spawner : public Sprite

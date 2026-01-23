@@ -33,7 +33,7 @@ Efter att kompileringen är klar, starta spelet genom att köra följande komman
 ---
 
 ### Resurser och sökvägar
-Projektet kräver att mappen ```resources/``` ligger i samma katalog som du kör spslet ifrån. Sökvägarna hanteras via en global konstant ```gResPath```.
+Projektet kräver att mappen ```resources/``` ligger i samma katalog som du kör spelet ifrån. Sökvägarna hanteras via en global konstant ```gResPath```.
 
 
 ## 2. TESTBESKRIVNING
